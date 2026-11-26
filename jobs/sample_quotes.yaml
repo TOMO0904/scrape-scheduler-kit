@@ -1,0 +1,28 @@
+# Sample job: scrape quotes.toscrape.com (a site built for scraping practice;
+# it has no robots.txt, so automated access is allowed).
+# Copy this file and change url/parse/output for your own target site.
+name: quotes-sample
+url: https://quotes.toscrape.com/
+
+# Always keep this true unless the target site's terms explicitly allow
+# automated access. robots.txt is checked before every fetch.
+respect_robots_txt: true
+user_agent: "scrape-scheduler-kit/0.1 (portfolio sample; contact: you@example.com)"
+timeout_seconds: 15
+retries: 2
+request_delay_seconds: 1.0
+
+parse:
+  item_selector: "div.quote"
+  fields:
+    quote: "span.text::text"
+    author: "small.author::text"
+    tags: "div.tags a.tag::text"   # multiple matches -> list, joined with "; " in CSV
+
+output:
+  type: csv            # csv | jsonl | sheets
+  path: "out/quotes.csv"
+  append: true         # scheduled runs append new rows
+
+schedule:
+  every_minutes: 60    # used by `python -m scrape_kit run ...` (loop mode)
