@@ -58,7 +58,7 @@ def validate_config(cfg: dict[str, Any]) -> dict[str, Any]:
         raise ConfigError("schedule.every_minutes must be > 0")
 
     cfg.setdefault("respect_robots_txt", True)
-    cfg.setdefault("user_agent", "scrape-scheduler-kit/0.1")
+    cfg.setdefault("user_agent", "scrape-scheduler-kit/1.1")
     cfg.setdefault("timeout_seconds", 15)
     cfg.setdefault("retries", 2)
     cfg.setdefault("request_delay_seconds", 1.0)

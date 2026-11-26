@@ -1,0 +1,29 @@
+# Example job: same scrape as quotes_toscrape.yaml, but written to Google Sheets.
+# Google Sheets出力の例。実際のサービスアカウントキーは絶対にコミットしないでください。
+#
+# Setup / 事前準備:
+#   pip install .[sheets]
+#   set GOOGLE_SERVICE_ACCOUNT_JSON=C:\path\to\service-account-key.json   (Windows)
+#   export GOOGLE_SERVICE_ACCOUNT_JSON=/path/to/service-account-key.json  (macOS/Linux)
+name: quotes-to-sheets
+url: https://quotes.toscrape.com/
+
+respect_robots_txt: true
+user_agent: "scrape-scheduler-kit/1.1 (example; contact: you@example.com)"
+timeout_seconds: 15
+retries: 2
+request_delay_seconds: 1.0
+
+parse:
+  item_selector: "div.quote"
+  fields:
+    quote: "span.text::text"
+    author: "small.author::text"
+    tags: "div.tags a.tag::text"
+
+output:
+  type: sheets
+  spreadsheet: "My Quotes Spreadsheet"   # sheet name or full URL (ダミー名。実際のシート名/URLに置き換える)
+
+schedule:
+  every_minutes: 60

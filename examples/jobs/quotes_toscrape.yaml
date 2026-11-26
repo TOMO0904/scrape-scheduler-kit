@@ -1,0 +1,35 @@
+# Example job: scrape quotes.toscrape.com (a site built for scraping practice;
+# it has no robots.txt restrictions, so automated access is allowed).
+# サンプル: スクレイピング練習用サイト quotes.toscrape.com を取得するジョブ例。
+# Copy this file and change url/parse/output for your own target site.
+#
+# Run it with:
+#   scrape-kit validate examples/jobs/quotes_toscrape.yaml
+#   scrape-kit run examples/jobs/quotes_toscrape.yaml --once
+#   scrape-kit run examples/jobs/quotes_toscrape.yaml          # scheduled loop
+name: quotes-sample
+url: https://quotes.toscrape.com/
+
+# Always keep this true unless the target site's terms explicitly allow
+# automated access. robots.txt is checked before every fetch.
+# 自動アクセスを禁止しているサイト（例: Upwork）には絶対に向けないでください。
+respect_robots_txt: true
+user_agent: "scrape-scheduler-kit/1.1 (example; contact: you@example.com)"
+timeout_seconds: 15
+retries: 2
+request_delay_seconds: 1.0
+
+parse:
+  item_selector: "div.quote"
+  fields:
+    quote: "span.text::text"
+    author: "small.author::text"
+    tags: "div.tags a.tag::text"   # multiple matches -> list, joined with "; " in CSV
+
+output:
+  type: csv            # csv | jsonl | sheets
+  path: "out/quotes.csv"
+  append: true         # scheduled runs append new rows
+
+schedule:
+  every_minutes: 60    # used by `scrape-kit run ...` (loop mode)

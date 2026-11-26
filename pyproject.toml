@@ -1,19 +1,25 @@
 [build-system]
-requires = ["setuptools>=68"]
+requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "scrape-scheduler-kit"
-version = "0.1.0"
+version = "1.1.0"
 description = "Config-driven scraping + scheduled execution kit (robots.txt-respecting) with CSV/JSONL/Google Sheets output"
 readme = "README.md"
 requires-python = ">=3.10"
 license = "MIT"
+authors = [{ name = "TOMO0904" }]
+keywords = ["scraping", "scheduler", "csv", "jsonl", "google-sheets", "robots-txt", "yaml"]
 dependencies = [
     "requests>=2.31",
     "beautifulsoup4>=4.12",
     "PyYAML>=6.0",
 ]
+
+[project.urls]
+Repository = "https://github.com/TOMO0904/scrape-scheduler-kit"
+Changelog = "https://github.com/TOMO0904/scrape-scheduler-kit/blob/main/CHANGELOG.md"
 
 [project.optional-dependencies]
 sheets = ["gspread>=6.0"]

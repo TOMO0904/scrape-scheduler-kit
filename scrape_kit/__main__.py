@@ -1,4 +1,4 @@
-"""CLI: python -m scrape_kit <run|validate> <job.yaml> [--once]"""
+"""CLI: scrape-kit <run|validate> <job.yaml> [--once]  (also: python -m scrape_kit ...)"""
 
 from __future__ import annotations
 
@@ -10,7 +10,7 @@ from .scheduler import run_loop, run_once
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(prog="scrape_kit", description="Config-driven scraping + scheduled run kit")
+    parser = argparse.ArgumentParser(prog="scrape-kit", description="Config-driven scraping + scheduled run kit")
     parser.add_argument("command", choices=["run", "validate"], help="run the job, or only validate the config")
     parser.add_argument("config", help="path to a job YAML file")
     parser.add_argument("--once", action="store_true", help="run once instead of looping on schedule")
